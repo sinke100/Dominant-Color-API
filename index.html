@@ -22,7 +22,7 @@
         const formData = new FormData(form);
         const xhr = new XMLHttpRequest();
 
-        xhr.open('POST', 'http://192.168.1.12:5000/dominant-color');
+        xhr.open('POST', 'https://dominant-color-api.onrender.com/dominant-color');
         xhr.setRequestHeader('api_key', apiKey);
         xhr.onload = () => {
           if (xhr.status === 200) {
