@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dominant Color API</title>
+  </head>
+  <body style='background-color:bisque; text-align:center;color:black'>
+    <h1>Dominant Color API</h1>
+    <form id="form" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*">
+      <button type="submit">Get Dominant Color</button>
+      <button type="reset">Reset</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+      const form = document.getElementById('form');
+      const result = document.getElementById('result');
+        const apiKey = 'iXdEJExfKmW9F4wtxBDUjEc4CWjnQhW2';
+      form.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(form);
+  fetch('https://dominant-color-api.onrender.com/dominant-color', {
+    method: 'POST',
+    headers: {
+      'api_key': apiKey
+    },
+    body: formData
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    else {
+      throw new Error(response.statusText);
+    }
+  })
+  .then(data => {
+    result.innerHTML = `The dominant color is ${data.hex_code}, and image filesize is ${data.size} kb, and image size is ${data.wh}`;
+    document.body.style.backgroundColor = `${data.hex_code}`;
+    document.body.style.color = `${data.text}`;
+  })
+  .catch(error => {
+      if (`${error}` !== 'Error: Unauthorized'){
+    result.innerHTML = `${error}`;
+    document.body.style.backgroundColor = 'bisque';
+    document.body.style.color = 'black';}
+      else{
+    result.innerHTML = 'No API key or invalid one provided';
+    document.body.style.backgroundColor = 'bisque';
+    document.body.style.color = 'black';
+          }
+  });
+});
+
+      form.addEventListener('reset', (event) => {
+        result.innerHTML = '';
+        document.body.style.backgroundColor = 'bisque';
+        document.body.style.color = 'black';
+      });
+    </script>
+  </body>
+</html>
