@@ -6,3 +6,5 @@ Flask Rest API
 run with:
 
 # gunicorn app:app
+
+# https://sinke100.github.io/Dominant-Color-API/ 
